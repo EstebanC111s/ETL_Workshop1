@@ -1,26 +1,181 @@
-# ETL Workshop 1 - Data Engineer Challenge
+# 📊 ETL Workshop 1 — Data Engineer Challenge
 
-Este proyecto corresponde al **Workshop 1 del curso ETL**.  
-Simula un reto técnico de entrevista para un perfil **Data Engineer**, en el que se construye un proceso **ETL (Extract, Transform, Load)** completo a partir de un dataset con 50,000 candidatos de procesos de selección.
+This repository contains the full solution to **Workshop 1** of the ETL course, designed as a **technical challenge for Data Engineers**.
 
----
-
-## 📌 Objetivo
-
-1. **Extract** → Cargar datos desde un CSV con información de candidatos.  
-2. **Transform** → Aplicar reglas de negocio (ejemplo: un candidato es HIRED si sus dos puntajes ≥ 7) y organizar los datos en un modelo dimensional (Star Schema).  
-3. **Load** → Cargar la información en un **Data Warehouse** (SQLite en este caso).  
-4. **KPIs y Visualizaciones** → Consultar el DW para obtener métricas y gráficas que permitan analizar contrataciones por país, tecnología, seniority, etc.
+It implements an **ELT** pipeline (Extract → Load → Transform) that ingests a CSV of candidate applications, loads the raw data into a **SQLite** data warehouse, transforms it into a **star schema**, and generates **KPIs** and **visualizations** directly from the warehouse.
 
 ---
 
-## 🗂️ Estructura del proyecto
+## 🧠 ELT Workflow
 
+| ⚙️ Step        | 🔍 Description |
+|---------------|----------------|
+| 📥 **Extract** | Read raw data from CSV file |
+| 🐬 **Load**    | Store unmodified data in staging table in SQLite |
+| 🐍 **Transform** | Run all transformations and business logic using SQL inside the DW |
+| 📊 **KPIs**    | Query dimensional model to compute metrics |
+| 📈 **Visuals** | Generate Ruby Red charts using Python & Matplotlib |
+
+---
+
+## 📁 Project Structure
+
+```
 etl_workshop/
-│── etl.py # Proceso ETL completo (Extract, Transform, Load)
-│── queries.sql # Consultas SQL para KPIs
-│── dw_hiring.db # Data Warehouse en SQLite (se genera al correr etl.py)
-│── schema_star.png # Diagrama del Star Schema
-│── README.md # Documentación del proyecto
-│── requirements.txt # Librerías necesarias
-│── .gitignore # Archivos a ignorar en GitHub
+├── data/
+│   └── candidates.csv              # Raw CSV file
+├── docs/
+│   └── schema_star.png             # Star Schema diagram
+├── sql/
+│   └── queries.sql                 # KPI queries in SQL
+├── src/
+│   ├── etl.py                      # ELT pipeline using SQL
+│   └── visuals.py                  # Chart generation (Ruby Red theme)
+├── visuals/                        # Auto-generated .png charts
+├── dw_hiring.db                    # SQLite DW (generated)
+├── requirements.txt
+└── .gitignore
+```
+
+---
+
+## 🐍 Requirements
+
+- Python **3.8+**
+- Required packages:
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 🚀 How to Run
+
+### 1. Run ETL pipeline
+
+```bash
+python src/etl.py
+```
+
+This will:
+- Load raw data into `stg_candidates_raw`
+- Build dimensions: `DimDate`, `DimCountry`, `DimSeniority`, `DimTechnology`
+- Create fact table: `FactHiring`
+
+### 2. Generate visualizations
+
+```bash
+python src/visuals.py
+```
+
+Generates `.png` charts in `visuals/`
+
+---
+
+## 🗂️ Star Schema
+
+- **FactHiring**
+  - `date_id`, `country_id`, `seniority_id`, `technology_id`
+  - `hired`, `code_score`, `tech_score`
+- **DimDate**
+- **DimCountry**
+- **DimSeniority**
+- **DimTechnology**
+
+📌 See: `docs/schema_star.png`
+
+---
+
+## 🧮 KPIs Available
+
+- Hires by Technology (Top 12)
+- Hires by Year
+- Hires by Seniority
+- Hires by Country (Grouped by Year)
+- Global Hire Rate (%)
+- Average Code/Tech Score by Technology
+
+All queries are available in `sql/queries.sql`.
+
+---
+
+## 📈 Example Visualizations
+
+Charts are saved in `/visuals`:
+
+| 📊 Chart | 📄 Filename |
+|---------|-------------|
+| Hires by Tech | `kpi_tech_top12.png` |
+| Hires by Year | `kpi_year.png` |
+| Hires by Seniority | `kpi_seniority.png` |
+| Hires by Country-Year | `kpi_country_year_grouped.png` |
+| Global Hire Rate | `kpi_hire_rate.png` |
+| Avg Code/Tech Score | `kpi_avg_code_score_top10.png`, `kpi_avg_tech_score_top10.png` |
+
+All generated using `matplotlib` with a unified Ruby Red theme (`#9B111E`).
+
+---
+
+## 🧪 Testing SQL Queries
+
+You can run the queries manually in:
+
+- DB Browser for SQLite
+- SQLite CLI
+- Python:
+
+```python
+import pandas as pd
+from sqlalchemy import create_engine
+
+engine = create_engine("sqlite:///dw_hiring.db")
+df = pd.read_sql("SELECT * FROM FactHiring LIMIT 5;", engine)
+print(df)
+```
+
+---
+
+## 🐬 SQL Logic: Transformations inside the DW
+
+All data transformations happen in SQL, inside SQLite, after loading the raw CSV into `stg_candidates_raw`.
+
+### Examples:
+
+```sql
+-- HIRED logic
+CASE
+  WHEN CAST("Code Challenge Score" AS INT) >= 7
+   AND CAST("Technical Interview Score" AS INT) >= 7 THEN 1
+  ELSE 0
+END
+
+-- Extracting dates
+STRFTIME('%Y', "Application Date") AS year
+```
+
+---
+
+## ☁️ Push to GitHub (optional)
+
+```bash
+git init
+git add .
+git commit -m "Initial commit: ELT workshop project"
+git branch -M main
+git remote add origin https://github.com/your-user/etl_workshop.git
+git push -u origin main
+```
+
+If you get a rejection, run:
+
+```bash
+git pull --rebase origin main --allow-unrelated-histories
+git push -u origin main
+```
+
+---
+
+
+
+Made with 🐬 SQL + 🐍 Python — for the ETL Workshop.
