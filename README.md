@@ -6,7 +6,7 @@ It implements an **ELT** pipeline (Extract → Load → Transform) that ingests 
 
 ---
 
-## 🧠 ELT Workflow
+## 🧠 ETL
 
 | ⚙️ Step        | 🔍 Description |
 |---------------|----------------|
