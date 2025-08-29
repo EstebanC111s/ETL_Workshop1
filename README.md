@@ -36,6 +36,8 @@ etl_workshop/
 ├── requirements.txt
 └── .gitignore
 ```
+## Architecture
+<img width="1001" height="730" alt="image" src="https://github.com/user-attachments/assets/1a812e14-9eda-4bb6-9d1e-1bc83d9d44e9" />
 
 ---
 
