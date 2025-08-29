@@ -156,25 +156,25 @@ STRFTIME('%Y', "Application Date") AS year
 
 ---
 
-## ☁️ Push to GitHub (optional)
+# 1) Clonar el repositorio
+git clone https://github.com/EstebanC111s/ETL_Workshop1.git
 
-```bash
-git init
-git add .
-git commit -m "Initial commit: ELT workshop project"
-git branch -M main
-git remote add origin https://github.com/your-user/etl_workshop.git
-git push -u origin main
-```
+# 2) Entrar a la carpeta del proyecto
+cd ETL_Workshop1
 
-If you get a rejection, run:
+# 3) Abrir en Visual Studio Code
+code .
 
-```bash
-git pull --rebase origin main --allow-unrelated-histories
-git push -u origin main
-```
+# 4) (Opcional) Crear entorno y deps
+python -m venv .venv
+.\.venv\Scripts\Activate.ps1
+pip install -r requirements.txt
 
----
+# 5) Ejecutar el pipeline y las gráficas
+python src/etl.py
+python src/visuals.py
+
+
 
 
 
