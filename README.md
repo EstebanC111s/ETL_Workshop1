@@ -160,20 +160,27 @@ STRFTIME('%Y', "Application Date") AS year
 git clone https://github.com/EstebanC111s/ETL_Workshop1.git
 
 # 2) Entrar a la carpeta del proyecto
+```bash
 cd ETL_Workshop1
+```
 
 # 3) Abrir en Visual Studio Code
+```bash
 code .
+```
 
 # 4) (Opcional) Crear entorno y deps
+```bash
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 pip install -r requirements.txt
+```
 
 # 5) Ejecutar el pipeline y las gráficas
+```bash
 python src/etl.py
 python src/visuals.py
-
+```
 
 
 
