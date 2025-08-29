@@ -93,9 +93,9 @@ Generates `.png` charts in `visuals/`
 - Hires by Year
 - Hires by Seniority
 - Hires by Country (Grouped by Year)
-- Global Hire Rate (%)
-- Average Code/Tech Score by Technology
-
+- Hires by Seniority and Technology
+- Hire Percentage by Seniority (%)
+- 
 All queries are available in `sql/queries.sql`.
 
 ---
@@ -104,14 +104,16 @@ All queries are available in `sql/queries.sql`.
 
 Charts are saved in `/visuals`:
 
-| 📊 Chart | 📄 Filename |
-|---------|-------------|
-| Hires by Tech | `kpi_tech_top12.png` |
-| Hires by Year | `kpi_year.png` |
-| Hires by Seniority | `kpi_seniority.png` |
-| Hires by Country-Year | `kpi_country_year_grouped.png` |
-| Global Hire Rate | `kpi_hire_rate.png` |
-| Avg Code/Tech Score | `kpi_avg_code_score_top10.png`, `kpi_avg_tech_score_top10.png` |
+| 📊 Chart Description                      | 📄 Filename                            |
+|------------------------------------------|----------------------------------------|
+| Hires by Technology (Top 12)             | `kpi_tech_top12.png`                   |
+| Hires by Year (Line Chart)               | `kpi_year.png`                         |
+| Hires by Seniority                       | `kpi_seniority.png`                    |
+| Hires by Country × Year (Grouped Bars)   | `kpi_country_year_grouped.png`         |
+| Hires by Seniority and Top 3 Technologies| `kpi_hires_by_seniority_and_tech.png`  |
+| Hire Percentage by Seniority (%)         | `kpi_hires_pct_seniority.png`          |
+
+
 
 All generated using `matplotlib` with a unified Ruby Red theme (`#9B111E`).
 
