@@ -2,7 +2,7 @@
 
 This repository contains the full solution to **Workshop 1** of the ETL course, designed as a **technical challenge for Data Engineers**.
 
-It implements an **ELT** pipeline (Extract → Load → Transform) that ingests a CSV of candidate applications, loads the raw data into a **SQLite** data warehouse, transforms it into a **star schema**, and generates **KPIs** and **visualizations** directly from the warehouse.
+It implements an **ETL** pipeline (Extract → Transform → Load) that ingests a CSV of candidate applications, loads the raw data into a **SQLite** data warehouse, transforms it into a **star schema**, and generates **KPIs** and **visualizations** directly from the warehouse.
 
 ---
 
