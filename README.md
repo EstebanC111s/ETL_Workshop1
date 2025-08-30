@@ -86,7 +86,47 @@ Generates `.png` charts in `visuals/`
 <img width="1001" height="730" alt="image" src="https://github.com/user-attachments/assets/1a812e14-9eda-4bb6-9d1e-1bc83d9d44e9" />
 
 📌 See: `docs/schema_star.png`
+⭐ Star Schema Justification
 
+The star schema is the core of this Data Warehouse design. It consists of:
+
+FactHiring (Fact Table):
+
+This table contains the key metrics for analysis, such as hired, code_score, and tech_score, representing the outcomes of the hiring process.
+
+It connects to the dimensions via foreign keys: date_id, country_id, seniority_id, and technology_id.
+
+DimDate (Dimension Table):
+
+Stores date-related attributes (year, month, day) linked to each hiring record through date_id.
+
+Allows for temporal analysis, enabling KPIs like "Hires by Year."
+
+DimCountry (Dimension Table):
+
+Stores the country for each candidate, linked to the FactHiring table through country_id.
+
+Helps in analyzing hires based on geographic locations (e.g., "Hires by Country").
+
+DimSeniority (Dimension Table):
+
+Contains information about the candidate’s seniority level (e.g., Intern, Junior, Senior), linked to FactHiring through seniority_id.
+
+Provides insights into the distribution of hires by experience level.
+
+DimTechnology (Dimension Table):
+
+Includes the technologies (e.g., Python, Java, etc.) associated with each hire, connected to FactHiring via technology_id.
+
+Facilitates analysis of hires by technology, enabling KPIs like "Hires by Technology."
+
+Why Star Schema?
+
+The Star Schema simplifies query writing and improves performance, as it provides clear separation between facts and dimensions.
+
+This schema allows easy, scalable analysis of hiring metrics based on multiple dimensions (e.g., by country, by technology, by seniority level).
+
+The Fact Table stores detailed numeric data, while the Dimension Tables store descriptive attributes, making it easier to aggregate and filter data.
 ---
 
 ## 🧮 KPIs Available
